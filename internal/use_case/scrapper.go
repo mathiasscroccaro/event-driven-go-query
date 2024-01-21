@@ -68,6 +68,9 @@ func (use_case *GetDatasheetByUrlUseCase) Execute(url string) (io.Reader, error)
 		return nil, err
 	}
 	datasheetUrl, err := findDatasheetUrl(document)
+	if err != nil {
+		return nil, err
+	}
 
 	datasheetReader, err := downloadDatasheet(use_case.httpClient, datasheetUrl)
 	if err != nil {

@@ -31,7 +31,5 @@ func (use_case *GetEventsFromQueueUseCase) Execute() ([]domain.WebScrappingEvent
 		return nil, error
 	}
 
-	log.Println("Messages received", messages)
-
 	return messages, nil
 }
