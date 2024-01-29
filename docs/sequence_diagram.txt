@@ -1,0 +1,25 @@
+You can use this sequence diagram in the web site https://sequencediagram.org/
+
+actor User
+participant CLI publisher
+boundary Kafka queue
+control Web Scrapper worker
+
+database Local directory
+
+autoactivation on
+
+User->CLI publisher: ./binary \--file=references.csv
+
+CLI publisher->Kafka queue: publish WebScrappingEvent
+Kafka queue-->CLI publisher:
+
+CLI publisher-->User: stdout status
+
+Web Scrapper worker->(2)Kafka queue: get WebScrappingEvent
+Kafka queue-->Web Scrapper worker: list of WebScrappingEvent
+
+Web Scrapper worker--:4>Web Scrapper worker: process WebScrappingEvent
+
+Web Scrapper worker->Local directory: save datasheet
+Local directory-->Web Scrapper worker:
