@@ -1,11 +1,11 @@
 package use_case
 
 import (
-	"bytes"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/PuerkitoBio/goquery"
@@ -52,7 +52,7 @@ func TestNewGetDatasheetByUrlUseCase(t *testing.T) {
 }
 
 func TestFindDatasheetUrl(t *testing.T) {
-	pageReader := bytes.NewReader([]byte(`
+	pageReader := strings.NewReader(`
 	<html>
 		<body>
 			<table>
@@ -64,7 +64,7 @@ func TestFindDatasheetUrl(t *testing.T) {
 				</tbody>
 			</table>
 		</body>
-	</html>`))
+	</html>`)
 
 	document, err := goquery.NewDocumentFromReader(pageReader)
 	if err != nil {
